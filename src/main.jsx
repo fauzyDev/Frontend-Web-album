@@ -7,7 +7,7 @@ import "aos/dist/aos.css";
  
 import { ThemeProvider } from "@material-tailwind/react";
 import ErrorPage from "./error-page";
-import Dashboard from "./pages/Dashboard/page";
+import Page from "./pages/Dashboard/page"
 import Upload from "./pages/Dashboard/Upload";
 
 const router = createBrowserRouter([
@@ -18,7 +18,7 @@ const router = createBrowserRouter([
     },
     {
       path: "/pages/dashboard",
-      element: <Dashboard/>
+      element: <Page/>
     },
     {
       path: "/pages/dashboard/upload",

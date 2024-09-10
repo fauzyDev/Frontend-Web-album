@@ -10,7 +10,7 @@ import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 
-export default function OrderDashboard() {
+const DashboardLayout = ({ children, headerTitle, pageTitle }) => {
   return (
     <CssVarsProvider disableTransitionOnChange>
       <CssBaseline />
@@ -57,7 +57,7 @@ export default function OrderDashboard() {
                 href="#some-link"
                 sx={{ fontSize: 12, fontWeight: 500 }}
               >
-                Dashboard
+                {headerTitle}
               </Link>
             </Breadcrumbs>
           </Box>
@@ -73,11 +73,14 @@ export default function OrderDashboard() {
             }}
           >
             <Typography level="h2" component="h1">
-              Dashboard
+              {pageTitle}
             </Typography>
           </Box>
+          {children}
         </Box>
       </Box>
     </CssVarsProvider>
   );
 }
+
+export default DashboardLayout;
