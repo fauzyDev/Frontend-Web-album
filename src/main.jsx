@@ -9,12 +9,17 @@ import { ThemeProvider } from "@material-tailwind/react";
 import ErrorPage from "./error-page";
 import Page from "./pages/Dashboard/page"
 import Upload from "./pages/Dashboard/Upload";
+import Login from "./Login/page";
 
 const router = createBrowserRouter([
     {
       path: "/",
       element: <App/>,
       errorElement: <ErrorPage/>
+    },
+    {
+      path: "/login",
+      element: <Login/>
     },
     {
       path: "/pages/dashboard",

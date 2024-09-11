@@ -2,7 +2,6 @@ import Card from '@mui/joy/Card';
 import Table from '@mui/joy/Table';
 import Button from '@mui/joy/Button';
 
-
 const Tables = () => {
   return (
     <Card variant="soft">
