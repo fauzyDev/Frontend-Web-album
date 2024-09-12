@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
@@ -15,7 +14,7 @@ import ProtectedRoute from "./services/protected";
 
 
 export const Main = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false)
 
   const handleLogin = (token) => {
       localStorage.setItem('token', token);

@@ -7,12 +7,14 @@ import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
 import Input from '@mui/joy/Input';
 import Typography from '@mui/joy/Typography';
-
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
+import Alert from '@mui/joy/Alert';
+import IconButton from '@mui/joy/IconButton';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 
 interface FormElements extends HTMLFormControlsCollection {
-    email: HTMLInputElement;
+    username: HTMLInputElement;
     password: HTMLInputElement;
   }
 interface SignInFormElement extends HTMLFormElement {
@@ -20,14 +22,35 @@ interface SignInFormElement extends HTMLFormElement {
   }
 
 export default function Login() {
-    const handleSubmit = (event: React.FormEvent<SignInFormElement>) => {
+    const [alert, setAlert] = React.useState(false);
+    const [color, setColor] = React.useState<'success' | 'danger'>('success');
+    const [message, setMessage] = React.useState('');
+
+  const handleSubmit = async (event: React.FormEvent<SignInFormElement>) => {
       event.preventDefault();
       const formElements = event.currentTarget.elements;
-      const data = {
-        email: formElements.email.value,
-        password: formElements.password.value,
-      };
-      alert(JSON.stringify(data, null, 2));
+      const username = formElements.username.value;
+      const password = formElements.password.value;
+
+      // validasi
+      if (!username || !password) {
+        setMessage('Username dan password tidak boleh kosong');
+        setColor('danger');
+        setAlert(true);
+        return;
+      }
+
+    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+      if (!csrfToken) {
+        setMessage('Terjadi kesalahan, Harap refresh halaman');
+        setColor('danger');
+        setAlert(true);
+        return;
+      }
+
+      setMessage('Login berhasil');
+      setColor('success');
+      setAlert(true);
     };
 
   return (
@@ -60,6 +83,25 @@ export default function Login() {
             <Typography level="inherit" sx={{ textAlign: 'center', mb: 2, color: '#666' }}>
               Login untuk melanjutkan
             </Typography>
+            {/* alert */}
+            {alert && (
+              <Alert
+                sx={{ mb: 2 }}
+                color={color}
+                variant="solid"
+                endDecorator={
+                  <IconButton
+                    variant="solid"
+                    color={color}
+                    onClick={() => setAlert(false)}
+                  >
+                    <CloseRoundedIcon />
+                  </IconButton>
+                }
+              >
+                {message}
+              </Alert>
+            )}
             <Box
               component="form"
               onSubmit={handleSubmit}
@@ -69,11 +111,11 @@ export default function Login() {
                 gap: 2,
               }}
             >
-              <FormControl required>
+              <FormControl>
                 <FormLabel sx={{ color: '#555' }}>Username</FormLabel>
-                <Input type="username" name="username" placeholder="Masukkan username" />
+                <Input type="text" name="username" placeholder="Masukkan username" />
               </FormControl>
-              <FormControl required>
+              <FormControl>
                 <FormLabel sx={{ color: '#555' }}>Password</FormLabel>
                 <Input type="password" name="password" placeholder="Masukkan password" />
               </FormControl>
