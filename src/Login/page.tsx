@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate } from "react-router-dom"
 import { CssVarsProvider } from '@mui/joy/styles';
 import CssBaseline from '@mui/joy/CssBaseline';
 import Box from '@mui/joy/Box';
@@ -25,6 +26,7 @@ export default function Login() {
     const [alert, setAlert] = React.useState(false);
     const [color, setColor] = React.useState<'success' | 'danger'>('success');
     const [message, setMessage] = React.useState('');
+    const navigate = useNavigate()
 
   const handleSubmit = async (event: React.FormEvent<SignInFormElement>) => {
       event.preventDefault();
@@ -34,7 +36,13 @@ export default function Login() {
 
       // validasi
       if (!username || !password) {
-        setMessage('Username dan password tidak boleh kosong');
+        if (!username && !password) {
+          setMessage('Username dan password tidak boleh kosong');
+        } else if (!username) {
+          setMessage('Username tidak boleh kosong');
+        } else if (!password) {
+          setMessage('Password tidak boleh kosong');
+        }
         setColor('danger');
         setAlert(true);
         return;
@@ -48,10 +56,36 @@ export default function Login() {
         return;
       }
 
-      setMessage('Login berhasil');
-      setColor('success');
-      setAlert(true);
-    };
+      // proses login
+      const data = { username, password }
+        try {
+          const response = await fetch('/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'CSRF-Token': csrfToken,
+            },
+            body: JSON.stringify(data)
+          })
+
+          const valid = await response.json()
+            if (valid.success) {
+              setMessage('Login berhasil');
+              setColor('success');
+              setAlert(true);
+              navigate('/pages/dashboard')
+            } else {
+              setMessage('Login gagal');
+              setColor('danger');
+              setAlert(true);
+            }
+          } catch (error) {
+            console.error('Error',error)
+            setMessage('Terjadi kesalahan');
+            setColor('danger');
+            setAlert(true);
+          }
+        };
 
   return (
     <CssVarsProvider>
@@ -62,7 +96,7 @@ export default function Login() {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor: '#e0e0e0', // Latar belakang abu-abu yang lebih lembut
+          backgroundColor: '#32383E', // Latar belakang abu-abu yang lebih lembut
           padding: 2,
         }}
       >
@@ -73,14 +107,14 @@ export default function Login() {
             padding: 3,
             boxShadow: 'lg',
             borderRadius: 'md',
-            backgroundColor: '#ffffff', // Warna putih untuk kontras dengan latar belakang abu-abu
+            backgroundColor: '#636B74', // Warna putih untuk kontras dengan latar belakang abu-abu
           }}
         >
           <CardContent>
-            <Typography level="h4" sx={{ fontWeight: 'bold', textAlign: 'center', color: '#333' }}>
+            <Typography level="h4" sx={{ fontWeight: 'bold', textAlign: 'center', color: '#FBFCFE' }}>
               Selamat Datang
             </Typography>
-            <Typography level="inherit" sx={{ textAlign: 'center', mb: 2, color: '#666' }}>
+            <Typography level="inherit" sx={{ textAlign: 'center', mb: 2, color: '#FBFCFE' }}>
               Login untuk melanjutkan
             </Typography>
             {/* alert */}
@@ -112,12 +146,12 @@ export default function Login() {
               }}
             >
               <FormControl>
-                <FormLabel sx={{ color: '#555' }}>Username</FormLabel>
-                <Input type="text" name="username" placeholder="Masukkan username" />
+                <FormLabel sx={{ color: '#FBFCFE' }}>Username</FormLabel>
+                <Input type="text" name="username" placeholder="Masukkan username"/>
               </FormControl>
               <FormControl>
-                <FormLabel sx={{ color: '#555' }}>Password</FormLabel>
-                <Input type="password" name="password" placeholder="Masukkan password" />
+                <FormLabel sx={{ color: '#FBFCFE' }}>Password</FormLabel>
+                <Input type="password" name="password" placeholder="Masukkan password"/>
               </FormControl>
               <Button type="submit" sx={{ mt: 2, backgroundColor: '#007FFF', color: '#fff', '&:hover': { backgroundColor: '#0059B2' } }}>
                 Login
