@@ -12,14 +12,7 @@ import Upload from "./pages/Dashboard/Upload";
 import Login from "./Login/page";
 import ProtectedRoute from "./services/protected";
 
-
 export const Main = () => {
-  const [isAuthenticated, setIsAuthenticated] = React.useState(false)
-
-  const handleLogin = (token) => {
-      localStorage.setItem('token', token);
-      setIsAuthenticated(true);
-    };
 
   const router = createBrowserRouter([
       {
@@ -29,12 +22,12 @@ export const Main = () => {
       },
       {
         path: "/login",
-        element: <Login onLogin={handleLogin}/>
+        element: <Login/>
       },
       {
         path: "/pages/dashboard",
         element: (
-          <ProtectedRoute isAuthenticated={isAuthenticated}>
+          <ProtectedRoute>
             <Page/>
           </ProtectedRoute>
         )
@@ -43,7 +36,7 @@ export const Main = () => {
       {
         path: "/pages/dashboard/upload",
         element: (
-          <ProtectedRoute isAuthenticated={isAuthenticated}>
+          <ProtectedRoute>
             <Upload/>
           </ProtectedRoute>
         )
@@ -59,6 +52,6 @@ export const Main = () => {
  
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Main/>
+      <Main/>
   </React.StrictMode>
 );

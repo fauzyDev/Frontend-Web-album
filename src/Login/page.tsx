@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useNavigate } from "react-router-dom"
 import { CssVarsProvider } from '@mui/joy/styles';
+import axios from 'axios';
 import CssBaseline from '@mui/joy/CssBaseline';
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
@@ -26,10 +27,12 @@ export default function Login() {
     const [alert, setAlert] = React.useState(false);
     const [color, setColor] = React.useState<'success' | 'danger'>('success');
     const [message, setMessage] = React.useState('');
+    const [loading, setLoading] = React.useState(false);
     const navigate = useNavigate()
 
-  const handleSubmit = async (event: React.FormEvent<SignInFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<SignInFormElement>) => {
       event.preventDefault();
+      setAlert(false);
       const formElements = event.currentTarget.elements;
       const username = formElements.username.value;
       const password = formElements.password.value;
@@ -48,43 +51,39 @@ export default function Login() {
         return;
       }
 
-    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-      if (!csrfToken) {
-        setMessage('Terjadi kesalahan, Harap refresh halaman');
-        setColor('danger');
-        setAlert(true);
-        return;
-      }
-
       // proses login
       const data = { username, password }
+      setLoading(true);
         try {
-          const response = await fetch('/login', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'CSRF-Token': csrfToken,
-            },
-            body: JSON.stringify(data)
+          const response = await axios.post('http://localhost:5000/api/login', data, {
+            headers: { 'Content-Type': 'application/json'},
+              withCredentials: true,  
           })
-
-          const valid = await response.json()
-            if (valid.success) {
+          
+            if (response.data[0].data.Authenticated) {
               setMessage('Login berhasil');
               setColor('success');
               setAlert(true);
-              navigate('/pages/dashboard')
+              setTimeout(() => {
+                navigate('/pages/dashboard')
+                setLoading(false);
+              }, 6000)
             } else {
-              setMessage('Login gagal');
+              setMessage('Username atau password salah');
               setColor('danger');
               setAlert(true);
-            }
+            } 
+
           } catch (error) {
             console.error('Error',error)
-            setMessage('Terjadi kesalahan');
+            if (axios.isAxiosError(error) && error.response) {
+              setMessage(`Error: ${error.response.data.message || 'Terjadi kesalahan'}`);
+            } else {
+              setMessage('Terjadi kesalahan pada koneksi');
+            }
             setColor('danger');
             setAlert(true);
-          }
+          } 
         };
 
   return (
@@ -153,8 +152,8 @@ export default function Login() {
                 <FormLabel sx={{ color: '#FBFCFE' }}>Password</FormLabel>
                 <Input type="password" name="password" placeholder="Masukkan password"/>
               </FormControl>
-              <Button type="submit" sx={{ mt: 2, backgroundColor: '#007FFF', color: '#fff', '&:hover': { backgroundColor: '#0059B2' } }}>
-                Login
+              <Button type="submit" loading={loading} loadingPosition="start" variant="solid" sx={{ mt: 2, backgroundColor: '#007FFF', color: '#FFFFFF', '&:hover': { backgroundColor: '#0059B2' } }}>
+              {loading ? 'Loading...' : 'Login'}
               </Button>
             </Box>
           </CardContent>

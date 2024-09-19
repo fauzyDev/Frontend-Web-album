@@ -1,17 +1,39 @@
-import { Navigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import PropTypes from "prop-types"
+import { useEffect, useState } from "react"
+import axios from "axios"
 
-const ProtectedRoute = ({ isAuthenticated, children }) => {
-    if (!isAuthenticated) {
-        return <Navigate to="/login"/>
-    }
+const ProtectedRoute = ({ children }) => {
+    const [isAuthenticated, setIsAuthenticated] = useState(null)
+    const navigate = useNavigate()
 
-    return children
+    useEffect(() => {
+        const checkAuth = async () =>{
+            try {
+                const response = await axios.get('http://localhost:5000/api/check-login', {
+                    withCredentials: true,
+                });
+                console.log(response.data)
+                if (response.data[0].data.Authenticated) {
+                    setIsAuthenticated(true)
+                } else {
+                    setIsAuthenticated(false)
+                    navigate('/login')
+                }
+            } catch  {
+                console.error("Error user is not login");
+                setIsAuthenticated(false)
+                navigate('/login')
+            }
+        }
+        checkAuth()
+    }, [navigate])
+
+    return isAuthenticated ? children : null;
 }
 
 ProtectedRoute.propTypes = {
-    isAuthenticated: PropTypes.bool,
-    children: PropTypes.object
+    children: PropTypes.node
 }
 
 export default ProtectedRoute
