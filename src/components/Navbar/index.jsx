@@ -99,7 +99,7 @@ const toggleDarkMode = () => {
             </li>
             <li>
               <a
-                href="#services"
+                href="#foto"
                 className="navbar-link block py-2 px-3 md:p-0 text-cyan-300 dark:text-cyan-400 font-semibold rounded transition duration-300 ease-in-out hover:bg-indigo-600 hover:text-white md:hover:bg-transparent"
                 onClick={() => setIsOpen(false)}
                 >
@@ -108,11 +108,20 @@ const toggleDarkMode = () => {
             </li>
             <li>
               <a
-                href="#pricing"
+                href="#video"
                 className="navbar-link block py-2 px-3 md:p-0 text-cyan-300 dark:text-cyan-400 font-semibold rounded transition duration-300 ease-in-out hover:bg-indigo-600 hover:text-white md:hover:bg-transparent"
                 onClick={() => setIsOpen(false)}
               >
                 Video
+              </a>
+            </li>
+            <li>
+              <a
+                href="/login"
+                className="navbar-link block py-2 px-3 md:p-0 text-cyan-300 dark:text-cyan-400 font-semibold rounded transition duration-300 ease-in-out hover:bg-indigo-600 hover:text-white md:hover:bg-transparent"
+                onClick={() => setIsOpen(false)}
+              >
+                Login
               </a>
             </li>
           </ul>

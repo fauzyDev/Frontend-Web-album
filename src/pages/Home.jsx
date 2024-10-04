@@ -15,7 +15,7 @@ const Home = () => {
   return (
     <>
       <h1
-        className={`text-2xl font-semibold text-center p-4 underline transition-opacity duration-1000 ${
+        className={`text-2xl font-semibold text-center p-4 mt-2 underline transition-opacity duration-1000 ${
           isVisible ? "opacity-100" : "opacity-0"
         }`}
       >

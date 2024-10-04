@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useNavigate } from "react-router-dom"
 import { CssVarsProvider } from '@mui/joy/styles';
+import Link from '@mui/joy/Link';
 import axios from 'axios';
 import CssBaseline from '@mui/joy/CssBaseline';
 import Box from '@mui/joy/Box';
@@ -26,9 +27,22 @@ interface SignInFormElement extends HTMLFormElement {
 export default function Login() {
     const [alert, setAlert] = React.useState(false);
     const [color, setColor] = React.useState<'success' | 'danger'>('success');
+    const [token, setToken] = React.useState<string | null>(null);
     const [message, setMessage] = React.useState('');
     const [loading, setLoading] = React.useState(false);
     const navigate = useNavigate()
+
+    React.useEffect(() => {
+      const getToken = async () => {
+        try {
+          const response = await axios.get('http://localhost:5000/api/v1/csrf', { withCredentials: true })
+          setToken(response.data.csrfToken)
+        } catch (error) {
+          console.error('Gagal mendapatkan token:', error);
+        }
+      }
+      getToken()
+    }, [])
 
     const handleSubmit = async (event: React.FormEvent<SignInFormElement>) => {
       event.preventDefault();
@@ -55,23 +69,27 @@ export default function Login() {
       const data = { username, password }
       setLoading(true);
         try {
-          const response = await axios.post('http://localhost:5000/api/login', data, {
-            headers: { 'Content-Type': 'application/json'},
+          const response = await axios.post('http://localhost:5000/api/v1/login', data, {
+            headers: { 
+              'Content-Type': 'application/json',
+              'x-csrf-token': token
+            },
               withCredentials: true,  
           })
-          
-            if (response.data[0].data.Authenticated) {
+            
+            if (response.data?.[0]?.data?.Authenticated) {
               setMessage('Login berhasil');
               setColor('success');
               setAlert(true);
               setTimeout(() => {
                 navigate('/pages/dashboard')
                 setLoading(false);
-              }, 6000)
+              }, 1000)
             } else {
               setMessage('Username atau password salah');
               setColor('danger');
               setAlert(true);
+              setLoading(false);
             } 
 
           } catch (error) {
@@ -83,6 +101,7 @@ export default function Login() {
             }
             setColor('danger');
             setAlert(true);
+            setLoading(false);
           } 
         };
 
@@ -156,6 +175,9 @@ export default function Login() {
               {loading ? 'Loading...' : 'Login'}
               </Button>
             </Box>
+            <Link href="#underline" underline="always" color="neutral">
+            Kembali ke beranda 
+            </Link>
           </CardContent>
         </Card>
       </Box>

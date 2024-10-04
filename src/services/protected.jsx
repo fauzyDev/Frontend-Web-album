@@ -10,11 +10,11 @@ const ProtectedRoute = ({ children }) => {
     useEffect(() => {
         const checkAuth = async () =>{
             try {
-                const response = await axios.get('http://localhost:5000/api/check-login', {
+                const response = await axios.get('http://localhost:5000/api/v1/check-login', {
                     withCredentials: true,
                 });
-                console.log(response.data)
-                if (response.data[0].data.Authenticated) {
+                
+                if (response.data?.[0]?.data?.Authenticated) {
                     setIsAuthenticated(true)
                 } else {
                     setIsAuthenticated(false)

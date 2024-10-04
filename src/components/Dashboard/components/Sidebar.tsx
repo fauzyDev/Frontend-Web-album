@@ -17,6 +17,7 @@ import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import { Link } from 'react-router-dom';
 import { closeSidebar } from '../utils';
+import Logout from '../../../services/logout';
 
 export default function Sidebar() {
   return (
@@ -126,9 +127,7 @@ export default function Sidebar() {
         <Box sx={{ minWidth: 0, flex: 1 }}>
           <Typography level="title-sm">Admin</Typography>
         </Box>
-        <IconButton size="sm" variant="plain" color="neutral">
-          <LogoutRoundedIcon />
-        </IconButton>
+        <Logout/>
       </Box>
     </Sheet>
   );
