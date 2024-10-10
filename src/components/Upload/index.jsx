@@ -1,22 +1,52 @@
-import { useState } from 'react';
-import { Box, Button, Input, Textarea, Typography } from '@mui/joy';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
+import { Box, Button,  Typography } from '@mui/joy';
 import Card from '@mui/joy/Card';
 
 const UploadForm = () => {
+    const [token, setToken] = useState(null)
     const [file, setFile] = useState(null);
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
+    // const [title, setTitle] = useState('');
+    // const [description, setDescription] = useState('');
+
+    useEffect(() => {
+      const getToken = async () => {
+        try {
+          const response = await axios.get('http://localhost:5000/api/v1/csrf', { withCredentials: true })
+          setToken(response.data.csrfToken)
+        } catch (error) {
+          console.error('Gagal mendapatkan token:', error);
+        }
+      }
+      getToken()
+    }, [])
 
     const handleFileChange = (e) => {
       setFile(e.target.files[0]);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
       e.preventDefault();
-      // Logika untuk upload file
-      console.log('File:', file);
-      console.log('Title:', title);
-      console.log('Description:', description);
+     
+      const formData = new FormData()
+      formData.append('file', file)
+
+      try {
+        const response = await axios.post('http://localhost:5000/api/v1/upload', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'x-csrf-token': token,  // Sertakan CSRF token di header
+          },
+          withCredentials: true,  // Ini penting jika token disimpan di cookie
+        });
+
+        console.log('File uploaded successfully:', response.data);
+        // setTitle('');
+        // setDescription('');
+        setFile(null);
+      } catch (error) {
+        console.error('Error uploading file:', error);
+      }
     };
 
     return (
@@ -37,7 +67,7 @@ const UploadForm = () => {
           Upload File
       </Typography>
       
-      <Input
+      {/* <Input
         placeholder="Judul"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
@@ -50,7 +80,7 @@ const UploadForm = () => {
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         required
-      />
+      /> */}
       
       <Button component="label" variant="outlined">
           Pilih File
