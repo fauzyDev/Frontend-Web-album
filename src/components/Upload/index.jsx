@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { Box, Button, Input, Textarea, Typography } from '@mui/joy';
+import { Box, Button, Input, Typography } from '@mui/joy';
+import Textarea from '@mui/joy/Textarea';
 import Card from '@mui/joy/Card';
 
 const UploadForm = () => {
     const [token, setToken] = useState(null)
     const [file, setFile] = useState(null);
-    const [title, setTitle] = useState('');
+    const [judul, setJudul] = useState('');
     const [description, setDescription] = useState('');
 
     useEffect(() => {
@@ -30,6 +31,8 @@ const UploadForm = () => {
      
       const formData = new FormData()
       formData.append('file', file)
+      formData.append('judul', judul)
+      formData.append('description', description)
 
       try {
         const response = await axios.post('http://localhost:5000/api/v1/upload', formData, {
@@ -39,10 +42,10 @@ const UploadForm = () => {
           },
           withCredentials: true,  
         });
-
-        // setTitle('');
-        // setDescription('');
-        setFile(response);
+        
+        setJudul(response?.data?.data || "");
+        setDescription(response?.data?.data || "");
+        setFile(response?.data?.data || null);
       } catch (error) {
         console.error('Terjadi error saat mengupload', error);
       }
@@ -68,8 +71,8 @@ const UploadForm = () => {
       
       <Input
         placeholder="Judul"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        value={judul}
+        onChange={(e) => setJudul(e.target.value)}
         required
       />
       

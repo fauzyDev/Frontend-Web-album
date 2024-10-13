@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useNavigate } from "react-router-dom"
 import { CssVarsProvider } from '@mui/joy/styles';
-import Link from '@mui/joy/Link';
 import axios from 'axios';
 import CssBaseline from '@mui/joy/CssBaseline';
 import Box from '@mui/joy/Box';
@@ -175,9 +174,9 @@ export default function Login() {
               {loading ? 'Loading...' : 'Login'}
               </Button>
             </Box>
-            <Link href="#underline" underline="always" color="neutral">
+            <a href="/" className="text-center underline font-semibold">
             Kembali ke beranda 
-            </Link>
+            </a>
           </CardContent>
         </Card>
       </Box>

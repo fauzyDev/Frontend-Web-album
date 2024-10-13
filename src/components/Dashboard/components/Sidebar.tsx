@@ -3,7 +3,6 @@ import GlobalStyles from '@mui/joy/GlobalStyles';
 import Avatar from '@mui/joy/Avatar';
 import Box from '@mui/joy/Box';
 import Divider from '@mui/joy/Divider';
-import IconButton from '@mui/joy/IconButton';
 import Input from '@mui/joy/Input';
 import List from '@mui/joy/List';
 import ListItem from '@mui/joy/ListItem';
@@ -13,7 +12,6 @@ import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import { Link } from 'react-router-dom';
 import { closeSidebar } from '../utils';
@@ -98,7 +96,7 @@ export default function Sidebar() {
           }}
         >
           <ListItem>
-            <ListItemButton component={Link} to="/pages/dashboard">
+            <ListItemButton component={Link} to="/pages/dashboard" className="Sidebar-overlay" onClick={() => closeSidebar()}>
               <HomeRoundedIcon />
               <ListItemContent>
                 <Typography level="title-sm">Home</Typography>
@@ -107,7 +105,7 @@ export default function Sidebar() {
           </ListItem>
 
           <ListItem>
-            <ListItemButton component={Link} to="/pages/dashboard/upload">
+            <ListItemButton component={Link} to="/pages/dashboard/upload" className="Sidebar-overlay" onClick={() => closeSidebar()}>
               <UploadFileIcon />
               <ListItemContent>
                 <Typography level="title-sm">Upload</Typography>
