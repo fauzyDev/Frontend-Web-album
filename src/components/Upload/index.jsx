@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Box, Button, Input, Typography } from '@mui/joy';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import Textarea from '@mui/joy/Textarea';
 import Card from '@mui/joy/Card';
 
@@ -99,8 +100,9 @@ const UploadForm = () => {
           </Typography>
         )}
       
-        <Button type="submit" variant="solid" color="primary">
-          Upload
+        <Button type="submit" variant="solid" color="primary" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+        <CloudUploadIcon fontSize="large"/>
+            Upload
         </Button>
       </Card>
     </Box>

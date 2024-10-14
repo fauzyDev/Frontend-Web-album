@@ -32,10 +32,10 @@ const Tables = () => {
             <td>Gambar 17 Agustus</td>
             <td>Lomba balap karung</td>
             <td>
-              <Button variant="solid" color="primary" size="sm" sx={{ minWidth: 'auto' }}>Edit</Button> {/* Sesuaikan lebar tombol */}
+              <Button variant="solid" color="primary" size="sm" sx={{ minWidth: 'auto' }}>Edit</Button>
             </td>
             <td>
-              <Button variant="solid" color="danger" size="sm" sx={{ minWidth: 'auto' }}>Hapus</Button> {/* Sesuaikan lebar tombol */}
+              <Button variant="solid" color="danger" size="sm" sx={{ minWidth: 'auto' }}>Hapus</Button>
             </td>
           </tr>
         </tbody>
