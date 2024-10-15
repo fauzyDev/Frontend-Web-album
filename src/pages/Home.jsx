@@ -21,7 +21,7 @@ const Home = () => {
       >
         Halaman Beranda
       </h1>
-      <Gallery />
+      <Gallery/>
     </>
   );
 };

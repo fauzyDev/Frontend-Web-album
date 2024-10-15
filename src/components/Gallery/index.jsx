@@ -1,8 +1,18 @@
+import React from "react";
+import { getData } from "../../services/api";
 import MediaCard from "../MediaCard";
 import VideoCard from "../VideoCard";
 
-// Komponen utama untuk menampilkan beberapa card
 const Gallery = () => {
+    React.useEffect(() => {
+      const fetch = async () => {
+        const response = await getData('/api/data')
+        console.log(response[0].data)
+      }
+
+      fetch()
+    }, [])
+
   return (
     <div className="flex justify-center">
       <div className="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
