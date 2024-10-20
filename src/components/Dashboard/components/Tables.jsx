@@ -1,12 +1,11 @@
 import React from "react";
 import Card from '@mui/joy/Card';
 import Table from '@mui/joy/Table';
-import Button from '@mui/joy/Button';
 import Sheet from '@mui/joy/Sheet'; 
 import Box from '@mui/joy/Box';
 import Typography from '@mui/joy/Typography';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import AlertModal from "../../Modal";
+import InputModal from "../../Modal/Input";
 import { getData } from "../../../services/api";
 
 const Tables = () => {
@@ -93,10 +92,10 @@ const Tables = () => {
                   <td><Typography level="body1">{data.judul}</Typography></td>
                   <td><Typography level="body2" sx={{ whiteSpace: 'pre-line' }}>{data.description}</Typography></td>
                   <td>
-                    <Button variant="solid" color="primary" size="sm" sx={{ display: 'flex', alignItems: 'center', gap: 1, minWidth: 'auto' }}><EditIcon/>Edit</Button>
+                    <InputModal/>
                   </td>
                   <td>
-                    <Button variant="solid" color="danger" size="sm" sx={{ display: 'flex', alignItems: 'center', gap: 1, minWidth: 'auto' }}><DeleteIcon/>Hapus</Button>
+                    <AlertModal modal="Hapus" url={data.url}/>
                   </td>
                 </tr>
               ))}
