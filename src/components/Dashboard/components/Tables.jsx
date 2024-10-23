@@ -73,7 +73,8 @@ const Tables = () => {
               </tr>
             </thead>
             <tbody>
-              {data[0]?.data?.map((data, index) => (
+              {data[0]?.data?.length ? 
+              (data[0]?.data?.map((data, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
                   <td>
@@ -95,10 +96,13 @@ const Tables = () => {
                     <InputModal/>
                   </td>
                   <td>
-                    <AlertModal modal="Hapus" url={data.url}/>
+                    <AlertModal modal="Hapus" id={data.id}/>
                   </td>
                 </tr>
-              ))}
+              ))) : (
+                <tr>
+                  <td colSpan="6" style={{ textAlign: 'center' }}>Data masih kosong</td>
+                </tr>)}
             </tbody>
           </Table>
         </Sheet>

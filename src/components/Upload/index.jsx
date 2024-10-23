@@ -1,27 +1,30 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Box, Button, Input, Typography } from '@mui/joy';
+import ProgressCount from './Progress';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import Textarea from '@mui/joy/Textarea';
 import Card from '@mui/joy/Card';
 
 const UploadForm = () => {
-    const [token, setToken] = useState(null)
+    const [token, setToken] = useState(null);
     const [file, setFile] = useState(null);
     const [judul, setJudul] = useState('');
     const [description, setDescription] = useState('');
+    const [isUploading, setIsUploading] = useState(false);
+    const [uploadProgress, setUploadProgress] = useState(0);
 
     useEffect(() => {
       const getToken = async () => {
         try {
-          const response = await axios.get('http://localhost:5000/api/v1/csrf', { withCredentials: true })
-          setToken(response.data.csrfToken)
+          const response = await axios.get('http://localhost:5000/api/v1/csrf', { withCredentials: true });
+          setToken(response.data.csrfToken);
         } catch (error) {
           console.error('Harap refresh halaman', error);
         }
-      }
-      getToken()
-    }, [])
+      };
+      getToken();
+    }, []);
 
     const handleFileChange = (e) => {
       setFile(e.target.files[0]);
@@ -30,10 +33,12 @@ const UploadForm = () => {
     const handleSubmit = async (e) => {
       e.preventDefault();
      
-      const formData = new FormData()
-      formData.append('file', file)
-      formData.append('judul', judul)
-      formData.append('description', description)
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('judul', judul);
+      formData.append('description', description);
+
+      setIsUploading(true); 
 
       try {
         const response = await axios.post('http://localhost:5000/api/v1/upload', formData, {
@@ -42,6 +47,10 @@ const UploadForm = () => {
             'x-csrf-token': token,
           },
           withCredentials: true,  
+          onUploadProgress: (progressEvent) => {
+            const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+            setUploadProgress(percentCompleted)
+          }
         });
         
         setJudul(response?.data?.data || "");
@@ -49,6 +58,9 @@ const UploadForm = () => {
         setFile(response?.data?.data || null);
       } catch (error) {
         console.error('Terjadi error saat mengupload', error);
+      } finally {
+        setIsUploading(false)
+        setUploadProgress(0)
       }
     };
 
@@ -56,57 +68,63 @@ const UploadForm = () => {
       <Box
         component="form"
         sx={{ 
-        display: 'flex', 
-        flexDirection: 'column', 
-        gap: 2, 
-        width: 400, 
-        margin: '0 auto', 
-        mt: 4 
-      }}
-      onSubmit={handleSubmit}
-    >
-    <Card variant="soft">
-      <Typography level="h4" gutterBottom>
-          Upload File
-      </Typography>
-      
-      <Input
-        placeholder="Judul"
-        value={judul}
-        onChange={(e) => setJudul(e.target.value)}
-        required
-      />
-      
-      <Textarea
-        placeholder="Deskripsi"
-        minRows={4}
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        required
-      />
-      
-      <Button component="label" variant="outlined">
-          Pilih File
-        <input 
-          type="file" 
-          hidden 
-          onChange={handleFileChange} 
-          />
-        </Button>
-      
-        {file && (
-          <Typography>
-            File terpilih: {file.name}
+          display: 'flex', 
+          flexDirection: 'column', 
+          gap: 2, 
+          width: 400, 
+          margin: '0 auto', 
+          mt: 4 
+        }}
+        onSubmit={handleSubmit}
+      >
+        <Card variant="soft">
+          <Typography level="h4" gutterBottom>
+            Upload File
           </Typography>
-        )}
-      
-        <Button type="submit" variant="solid" color="primary" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-        <CloudUploadIcon fontSize="large"/>
+
+          <Input
+            placeholder="Judul"
+            value={judul}
+            onChange={(e) => setJudul(e.target.value)}
+            required
+          />
+          
+          <Textarea
+            placeholder="Deskripsi"
+            minRows={4}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          />
+          
+          <Button component="label" variant="outlined">
+            Pilih File
+            <input 
+              type="file" 
+              hidden 
+              onChange={handleFileChange} 
+            />
+          </Button>
+          
+          {file && (
+            <Typography>
+              File terpilih: {file.name}
+            </Typography>
+          )}
+
+          {isUploading && (
+            <Box sx={{ width: '100%', mt: 2 }}>
+              <ProgressCount progress={uploadProgress}/>
+            </Box>
+          )}
+
+          <Button type="submit" variant="solid" color="primary" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <CloudUploadIcon fontSize="large"/>
             Upload
-        </Button>
-      </Card>
-    </Box>
-  );
+          </Button>
+        </Card>
+      </Box>
+    );
 };
 
 export default UploadForm;

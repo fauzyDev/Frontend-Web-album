@@ -76,7 +76,7 @@ export default function Login() {
               withCredentials: true,  
           })
             
-            if (response.data?.[0]?.data?.Authenticated) {
+            if (response.data?.[0]?.data?.Success) {
               setMessage('Login berhasil');
               setColor('success');
               setAlert(true);

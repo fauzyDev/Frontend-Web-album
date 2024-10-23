@@ -14,7 +14,7 @@ const ProtectedRoute = ({ children }) => {
                     withCredentials: true,
                 });
                 
-                if (response.data?.[0]?.data?.Authenticated) {
+                if (response.data?.[0]?.data?.Success) {
                     setIsAuthenticated(true)
                 } else {
                     setIsAuthenticated(false)

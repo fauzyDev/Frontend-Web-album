@@ -10,17 +10,18 @@ import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
 
-export default function AlertModal({ modal, url }) {
+export default function AlertModal({ modal, id }) {
   const [open, setOpen] = React.useState<boolean>(false);
 
-    const handle = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handle = async (e: React.MouseEvent<HTMLElement>) => {
       e.preventDefault()
 
       try {
-        const data = await axios.delete(`http://localhost:5000/api/data/${url}`, {
+        const data = await axios.delete('http://localhost:5000/api/data', {
+          data: { id: id },
           withCredentials: true
       });
-        console.log(data)
+        console.log(data.data[0])
       } catch (error) {
         console.error(error, "Gagal menghapus data")
       }
@@ -48,7 +49,10 @@ export default function AlertModal({ modal, url }) {
             Apakah yakin untuk menghapus data ini?
           </DialogContent>
           <DialogActions>
-            <Button type="submit"className="rounded" variant="solid" color="danger" onClick={handle}>
+            <Button type="submit"className="rounded" variant="solid" color="danger" onClick={(e) => {
+              handle(e);
+              setOpen(false)
+            }}>
               Konfirmasi
             </Button>
             <Button className="rounded" variant="solid" color="primary" onClick={() => setOpen(false)}>

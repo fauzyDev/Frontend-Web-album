@@ -26,8 +26,8 @@ export default function InputModal({ inputModal }) {
       </Button>
       <Modal open={open} onClose={() => setOpen(false)}>
         <ModalDialog>
-          <DialogTitle>Create new project</DialogTitle>
-          <DialogContent>Fill in the information of the project.</DialogContent>
+          <DialogTitle>Edit</DialogTitle>
+          <DialogContent>Ubah informasi data.</DialogContent>
           <form
             onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
               event.preventDefault();
