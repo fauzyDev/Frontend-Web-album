@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { Box, Button, Input, Typography } from '@mui/joy';
+import { Box, Button, Typography } from '@mui/joy';
 import ProgressCount from './Progress';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import Textarea from '@mui/joy/Textarea';
 import Card from '@mui/joy/Card';
+import Input from '@mui/joy/Input';
 
 const UploadForm = () => {
     const [token, setToken] = useState(null);
@@ -83,6 +84,7 @@ const UploadForm = () => {
           </Typography>
 
           <Input
+            autoFocus
             placeholder="Judul"
             value={judul}
             onChange={(e) => setJudul(e.target.value)}
@@ -96,15 +98,14 @@ const UploadForm = () => {
             onChange={(e) => setDescription(e.target.value)}
             required
           />
-          
-          <Button component="label" variant="outlined">
-            Pilih File
-            <input 
-              type="file" 
-              hidden 
-              onChange={handleFileChange} 
-            />
-          </Button>
+
+          <Input 
+            type="file" 
+            variant="soft"
+            color="neutral"
+            size="md" 
+            onChange={handleFileChange} 
+          />
           
           {file && (
             <Typography>
