@@ -13,12 +13,14 @@ import Textarea from '@mui/joy/Textarea';
 
 export default function InputModal({ inputModal }) {
     const [open, setOpen] = React.useState<boolean>(false);
-    const [file, setFile] = React.useState<null>(null);
+    const [file, setFile] = React.useState<File | null>(null);
     const [judul, setJudul] = React.useState<string>('');
     const [description, setDescription] = React.useState<string>('');
 
-    const handleFileChange = (e) => {
-      setFile(e.target.files[0]);
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (e.target.files) {
+        setFile(e.target.files[0]);
+      }
     };
 
     return (

@@ -74,10 +74,9 @@ const UploadForm = () => {
           gap: 2, 
           width: 400, 
           margin: '0 auto', 
-          mt: 4 
-        }}
-        onSubmit={handleSubmit}
-      >
+          mt: 4 }} 
+          onSubmit={handleSubmit}>
+
         <Card variant="soft">
           <Typography level="h4" gutterBottom>
             Upload File
@@ -104,14 +103,9 @@ const UploadForm = () => {
             variant="soft"
             color="neutral"
             size="md" 
-            onChange={handleFileChange} 
+            onChange={handleFileChange}
+            required 
           />
-          
-          {file && (
-            <Typography>
-              File terpilih: {file.name}
-            </Typography>
-          )}
 
           {isUploading && (
             <Box sx={{ width: '100%', mt: 2 }}>
