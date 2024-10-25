@@ -23,6 +23,20 @@ export default function InputModal({ inputModal }) {
       }
     };
 
+    const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault()
+
+      const fromData = new FormData()
+      if (file) {
+        fromData.append('file', file)
+      }
+      fromData.append('judul', judul)
+      fromData.append('description', description)
+
+
+      setOpen(false);
+    }
+
     return (
       <React.Fragment>
         <Button
@@ -40,10 +54,7 @@ export default function InputModal({ inputModal }) {
           <DialogTitle>Edit</DialogTitle>
           <DialogContent>Ubah informasi data.</DialogContent>
           <form
-            onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
-              event.preventDefault();
-              setOpen(false);
-            }}>
+            onSubmit={handleSubmit}>
             <Stack spacing={2}>
               <FormControl>
                 <FormLabel>Judul</FormLabel>
@@ -71,7 +82,7 @@ export default function InputModal({ inputModal }) {
                   size="md" 
                   onChange={handleFileChange} />
               </FormControl>
-              <Button type="submit">Submit</Button>
+              <Button type="submit">Simpan</Button>
             </Stack>
           </form>
         </ModalDialog>

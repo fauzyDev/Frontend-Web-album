@@ -10,7 +10,7 @@ import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
 
-export default function AlertModal({ modal, id }) {
+export default function AlertModal({ modal, id, onDelete }) {
   const [open, setOpen] = React.useState<boolean>(false);
 
     const handle = async (e: React.MouseEvent<HTMLElement>) => {
@@ -21,6 +21,7 @@ export default function AlertModal({ modal, id }) {
           data: { id: id },
           withCredentials: true
       });
+        onDelete(id)
         console.log(data.data[0])
       } catch (error) {
         console.error(error, "Gagal menghapus data")

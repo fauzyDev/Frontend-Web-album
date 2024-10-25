@@ -20,6 +20,10 @@ const Tables = () => {
       fetch();
     }, []);
 
+    const handleDelete = (id) => {
+      setData((filterData) => filterData.filter(item => item.id !== id))
+    }
+
     return (
       <Card variant="soft" sx={{ overflow: 'auto', padding: 2 }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 2 }}>
@@ -96,7 +100,7 @@ const Tables = () => {
                     <InputModal/>
                   </td>
                   <td>
-                    <AlertModal modal="Hapus" id={data.id}/>
+                    <AlertModal modal="Hapus" id={data.id} onDelete={handleDelete}/>
                   </td>
                 </tr>
               ))) : (
