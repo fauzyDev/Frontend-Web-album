@@ -34,7 +34,7 @@ export default function Login() {
     React.useEffect(() => {
       const getToken = async () => {
         try {
-          const response = await axios.get('http://localhost:5000/api/v1/csrf', { withCredentials: true })
+          const response = await axios.get('https://api-web-album.vercel.app/api/v1/csrf', { withCredentials: true })
           setToken(response.data.csrfToken)
         } catch (error) {
           console.error('Gagal mendapatkan token:', error);
@@ -68,7 +68,7 @@ export default function Login() {
       const data = { username, password }
       setLoading(true);
         try {
-          const response = await axios.post('http://localhost:5000/api/v1/login', data, {
+          const response = await axios.post('https://api-web-album.vercel.app/api/v1/login', data, {
             headers: { 
               'Content-Type': 'application/json',
               'x-csrf-token': token

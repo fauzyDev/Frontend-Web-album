@@ -17,7 +17,7 @@ export default function AlertModal({ modal, id, onDelete }) {
       e.preventDefault()
 
       try {
-        const data = await axios.delete('http://localhost:5000/api/data', {
+        const data = await axios.delete('https://api-web-album.vercel.app/api/data', {
           data: { id: id },
           withCredentials: true
       });

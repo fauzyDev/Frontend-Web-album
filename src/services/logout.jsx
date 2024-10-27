@@ -8,7 +8,7 @@ const Logout = () => {
 
     const handle = async () => {
         try {
-            await axios.post('http://localhost:5000/api/v1/logout', { }, {
+            await axios.post('https://api-web-album.vercel.app/api/v1/logout', { }, {
                 withCredentials: true, 
             });
             navigate('/'); 

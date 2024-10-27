@@ -42,7 +42,7 @@ const UploadForm = () => {
       setIsUploading(true); 
 
       try {
-        const response = await axios.post('http://localhost:5000/api/v1/upload', formData, {
+        const response = await axios.post('https://api-web-album.vercel.app/api/v1/upload', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
             'x-csrf-token': token,
