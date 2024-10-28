@@ -5,6 +5,7 @@ import App from "./App";
 import "./index.css";
 import "aos/dist/aos.css";
  
+import { CssVarsProvider } from "@mui/joy/styles";
 import { ThemeProvider } from "@material-tailwind/react";
 import ErrorPage from "./error-page";
 import Page from "./pages/Dashboard/page"
@@ -44,9 +45,11 @@ export const Main = () => {
     ]);
 
     return (
+    <CssVarsProvider defaultMode="dark" modeStorageKey="joy-mode">
       <ThemeProvider>
         <RouterProvider router={router}/>
       </ThemeProvider>
+    </CssVarsProvider>
     )
   } 
  
