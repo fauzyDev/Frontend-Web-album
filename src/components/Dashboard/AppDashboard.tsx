@@ -12,7 +12,7 @@ import Header from './components/Header';
 
 const DashboardLayout = ({ children, headerTitle, pageTitle }) => {
   return (
-    <CssVarsProvider disableTransitionOnChange defaultMode="dark" modeStorageKey="joy-mode">
+    <CssVarsProvider disableTransitionOnChange defaultMode="dark" modeStorageKey="joy-mode-scheme-dark">
       <CssBaseline />
       <Box sx={{ display: 'flex', minHeight: '100dvh' }}>
         <Header />
