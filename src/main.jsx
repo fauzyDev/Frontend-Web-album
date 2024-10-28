@@ -5,14 +5,12 @@ import App from "./App";
 import "./index.css";
 import "aos/dist/aos.css";
  
-import { CssVarsProvider } from "@mui/joy/styles";
-// import { ThemeProvider } from "@material-tailwind/react";
+import { ThemeProvider } from "@material-tailwind/react";
 import ErrorPage from "./error-page";
 import Page from "./pages/Dashboard/page"
 import Upload from "./pages/Dashboard/Upload";
 import Login from "./Login/page";
 import ProtectedRoute from "./services/protected";
-import { dark } from "@mui/material/styles/createPalette";
 
 export const Main = () => {
 
@@ -46,9 +44,9 @@ export const Main = () => {
     ]);
 
     return (
-    <CssVarsProvider modeStorageKey="joy-mode" defaultMode="dark" defaultColorScheme={dark}>
+      <ThemeProvider>
         <RouterProvider router={router}/>
-    </CssVarsProvider>
+      </ThemeProvider>
     )
   } 
  

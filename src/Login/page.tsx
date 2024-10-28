@@ -105,7 +105,7 @@ export default function Login() {
         };
 
   return (
-    <CssVarsProvider>
+    <CssVarsProvider defaultMode='dark'>
       <CssBaseline />
       <Box
         sx={{
