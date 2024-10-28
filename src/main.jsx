@@ -12,6 +12,7 @@ import Page from "./pages/Dashboard/page"
 import Upload from "./pages/Dashboard/Upload";
 import Login from "./Login/page";
 import ProtectedRoute from "./services/protected";
+import { dark } from "@mui/material/styles/createPalette";
 
 export const Main = () => {
 
@@ -45,7 +46,7 @@ export const Main = () => {
     ]);
 
     return (
-    <CssVarsProvider defaultMode="dark" modeStorageKey="joy-mode">
+    <CssVarsProvider modeStorageKey="joy-mode" defaultMode="dark" defaultColorScheme={dark}>
       <ThemeProvider>
         <RouterProvider router={router}/>
       </ThemeProvider>
