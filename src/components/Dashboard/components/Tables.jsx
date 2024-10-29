@@ -14,14 +14,14 @@ const Tables = () => {
       React.useEffect(() => {
         const fetch = async () => {
         const response = await getData('/api/data');
-        setData(response);
+        setData(response[0].data);
       };
 
       fetch();
     }, []);
 
     const handleDelete = (id) => {
-      setData((filterData) => filterData.filter(item => item.id !== id))
+      setData((filterData) => filterData.filter((item) => item.id !== id))
     }
 
     return (
@@ -77,14 +77,14 @@ const Tables = () => {
               </tr>
             </thead>
             <tbody>
-              {data[0]?.data?.length ? 
-              (data[0]?.data?.map((data, index) => (
-                <tr key={index}>
+              {data?.length ? 
+              (data?.map((item, index) => (
+                <tr key={item.id}>
                   <td>{index + 1}</td>
                   <td>
                     <Box
                       component="img"
-                      src={data.url}
+                      src={item.url}
                       sx={{
                         borderRadius: '8px',
                         width: { xs: '50px', md: '60px' },
@@ -94,18 +94,18 @@ const Tables = () => {
                       alt="image"
                     />
                   </td>
-                  <td><Typography level="body1">{data.judul}</Typography></td>
-                  <td><Typography level="body2" sx={{ whiteSpace: 'pre-line' }}>{data.description}</Typography></td>
+                  <td><Typography level="body1">{item.judul}</Typography></td>
+                  <td><Typography level="body2" sx={{ whiteSpace: 'pre-line' }}>{item.description}</Typography></td>
                   <td>
                     <InputModal/>
                   </td>
                   <td>
-                    <AlertModal modal="Hapus" id={data.id} onDelete={handleDelete}/>
+                    <AlertModal modal="Hapus" id={item.id} onDelete={handleDelete}/>
                   </td>
                 </tr>
               ))) : (
                 <tr>
-                  <td colSpan="6" style={{ textAlign: 'center' }}>Data masih kosong</td>
+                  <td colSpan="6" style={{ textAlign: 'center' }}>Tidak ada data</td>
                 </tr>)}
             </tbody>
           </Table>

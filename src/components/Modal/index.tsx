@@ -18,13 +18,14 @@ export default function AlertModal({ modal, id, onDelete }) {
 
       try {
         const data = await axios.delete('https://api-web-album.vercel.app/api/data', {
-          data: { id: id },
+          data: { id },
           withCredentials: true
       });
         onDelete(id)
-        console.log(data.data[0])
       } catch (error) {
         console.error(error, "Gagal menghapus data")
+      } finally {
+        setOpen(false)
       }
     }
 
@@ -50,10 +51,7 @@ export default function AlertModal({ modal, id, onDelete }) {
             Apakah yakin untuk menghapus data ini?
           </DialogContent>
           <DialogActions>
-            <Button type="submit"className="rounded" variant="solid" color="danger" onClick={(e) => {
-              handle(e);
-              setOpen(false)
-            }}>
+            <Button type="submit"className="rounded" variant="solid" color="danger" onClick={handle}>
               Konfirmasi
             </Button>
             <Button className="rounded" variant="solid" color="primary" onClick={() => setOpen(false)}>

@@ -105,7 +105,7 @@ export default function Login() {
         };
 
   return (
-    <CssVarsProvider defaultMode="dark" modeStorageKey="joy-mode">
+    <CssVarsProvider defaultMode="dark" modeStorageKey="joy-mode-scheme-dark">
       <CssBaseline />
       <Box
         sx={{

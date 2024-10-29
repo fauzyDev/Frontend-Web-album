@@ -10,7 +10,7 @@ const ProtectedRoute = ({ children }) => {
     useEffect(() => {
         const checkAuth = async () =>{
             try {
-                const response = await axios.get('https://api-web-album.vercel.app/api/v1/check-login', {
+                const response = await axios.get('http://localhost:5000/api/v1/check-login', {
                     withCredentials: true,
                 });
                 
