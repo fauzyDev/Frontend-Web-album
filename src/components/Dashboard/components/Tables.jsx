@@ -1,4 +1,3 @@
-import React from "react";
 import Card from '@mui/joy/Card';
 import Table from '@mui/joy/Table';
 import Sheet from '@mui/joy/Sheet'; 
@@ -6,23 +5,34 @@ import Box from '@mui/joy/Box';
 import Typography from '@mui/joy/Typography';
 import AlertModal from "../../Modal";
 import InputModal from "../../Modal/Input";
+import axios from 'axios';
 import { getData } from "../../../services/api";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 const Tables = () => {
-      const [data, setData] = React.useState([]);
+    const queryClient = useQueryClient()
 
-      React.useEffect(() => {
-        const fetch = async () => {
-        const response = await getData('/api/data');
-        setData(response[0].data);
-      };
-
-      fetch();
-    }, []);
-
-    const handleDelete = (id) => {
-      setData((filterData) => filterData.filter((item) => item.id !== id))
+    const fetchData = async () => {
+    const response = await getData('/api/data');
+    return response[0].data
     }
+
+    const { data } = useQuery({ queryKey: ['data'], queryFn: fetchData })
+
+    const mutation = useMutation({ mutationFn: async (id) => {
+      await axios.delete('http://localhost:5000/api/data', {
+        data: { id },
+        withCredentials: true
+      });
+    },
+    onSettled: async () => {
+      return await queryClient.invalidateQueries({ queryKey: ['data'] })
+    }
+  })
+
+  const handleDetete = (id) => { 
+    mutation.mutate(id)
+  }
 
     return (
       <Card variant="soft" sx={{ overflow: 'auto', padding: 2 }}>
@@ -100,7 +110,7 @@ const Tables = () => {
                     <InputModal/>
                   </td>
                   <td>
-                    <AlertModal modal="Hapus" id={item.id} onDelete={handleDelete}/>
+                    <AlertModal modal="Hapus" id={item.id} onDelete={handleDetete}/>
                   </td>
                 </tr>
               ))) : (

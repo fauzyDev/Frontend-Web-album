@@ -8,26 +8,16 @@ import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 import DeleteIcon from '@mui/icons-material/Delete';
-import axios from 'axios';
 
 export default function AlertModal({ modal, id, onDelete }) {
-  const [open, setOpen] = React.useState<boolean>(false);
+    const [open, setOpen] = React.useState<boolean>(false);
 
-    const handle = async (e: React.MouseEvent<HTMLElement>) => {
-      e.preventDefault()
 
-      try {
-        const data = await axios.delete('https://api-web-album.vercel.app/api/data', {
-          data: { id },
-          withCredentials: true
-      });
-        onDelete(id)
-      } catch (error) {
-        console.error(error, "Gagal menghapus data")
-      } finally {
-        setOpen(false)
-      }
-    }
+  const handle = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault()
+    onDelete(id)
+    setOpen(false)
+  }
 
     return (
       <React.Fragment>

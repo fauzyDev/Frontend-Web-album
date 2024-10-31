@@ -6,11 +6,14 @@ import "./index.css";
 import "aos/dist/aos.css";
  
 import { ThemeProvider } from "@material-tailwind/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ErrorPage from "./error-page";
 import Page from "./pages/Dashboard/page"
 import Upload from "./pages/Dashboard/Upload";
 import Login from "./Login/page";
 import ProtectedRoute from "./services/protected";
+
+const queryClient = new QueryClient()
 
 export const Main = () => {
 
@@ -52,6 +55,8 @@ export const Main = () => {
  
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
       <Main/>
+    </QueryClientProvider>
   </React.StrictMode>
 );
