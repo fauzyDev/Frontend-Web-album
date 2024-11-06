@@ -19,10 +19,10 @@ function App() {
 
   return (
     <>
-    <Navbar/>
-    <Home/>
-    </>
-  )
-}
+      <Navbar/>
+      <Home/>
+      </>
+    )
+  }
 
 export default App

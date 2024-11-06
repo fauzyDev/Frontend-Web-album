@@ -24,14 +24,14 @@ const MediaCard = ({ api, buttonText, alt, onClick, animation }) => {
         </CardHeader>
         <CardBody>
           <Typography variant="h5" color="blue-gray" className="mb-2">
-            {data.judul}
+            Title: {data.judul}
           </Typography>
           <Typography>
-            {data.description}
+           Deskripsi: {data.description}
           </Typography>
         </CardBody>
         <CardFooter className="pt-0">
-          <Button>{buttonText}</Button>
+          <Button color="blue">{buttonText}</Button>
         </CardFooter>
       </Card>
         )
