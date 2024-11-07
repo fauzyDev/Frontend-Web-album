@@ -14,7 +14,7 @@ import Textarea from '@mui/joy/Textarea';
 import ProgressCount from '../Upload/Progress';
 import axios from 'axios';
 
-export default function InputModal({ inputModal }) {
+export default function InputModal({ modal, id }) {
     const [open, setOpen] = React.useState<boolean>(false);
     const [file, setFile] = React.useState<File | null>(null);
     const [judul, setJudul] = React.useState<string>('');
@@ -44,23 +44,22 @@ export default function InputModal({ inputModal }) {
     const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault()
 
-      const formData = new FormData()
-      if (file) {
-        formData.append('file', file)
+      const formData = {
+        id: id,
+        judul,
+        description,
+        file
       }
-      formData.append('judul', judul)
-      formData.append('description', description)
-
 
       try {
-        const response = await axios.post('http://localhost:5000/api/v1/upload', formData, {
+        const response = await axios.patch('http://localhost:5000/api/data', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
             'x-csrf-token': token,
           },
           withCredentials: true,  
           onUploadProgress: (progressEvent) => {
-            const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+            const percentCompleted = progressEvent.total ? Math.round((progressEvent.loaded * 100) / progressEvent.total) : 0;
             setUploadProgress(percentCompleted)
           }
         });
@@ -87,8 +86,7 @@ export default function InputModal({ inputModal }) {
           sx={{ display: 'flex', alignItems: 'center', gap: 1, minWidth: 'auto' }}
           onClick={() => setOpen(true)}>
           <EditIcon/>
-          Edit
-          {inputModal}
+          {modal}
        </Button>
       <Modal open={open} onClose={() => setOpen(false)}>
         <ModalDialog>

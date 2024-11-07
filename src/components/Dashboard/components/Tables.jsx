@@ -107,7 +107,7 @@ const Tables = () => {
                   <td><Typography level="body1">{item.judul}</Typography></td>
                   <td><Typography level="body2" sx={{ whiteSpace: 'pre-line' }}>{item.description}</Typography></td>
                   <td>
-                    <InputModal/>
+                    <InputModal modal="Edit" id={item.id}/>
                   </td>
                   <td>
                     <AlertModal modal="Hapus" id={item.id} onDelete={handleDetete}/>
