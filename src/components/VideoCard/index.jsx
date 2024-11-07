@@ -23,12 +23,14 @@ const VideoCard = ({ src, title, description, buttonText, alt, onClick, animatio
       </CardHeader>
       <CardBody>
         <Typography variant="h5" color="blue-gray" className="mb-2">
-          {title}
+         Title: {title}
         </Typography>
-        <Typography>{description}</Typography>
+        <Typography>
+        Deskripsi: {description}
+        </Typography>
       </CardBody>
       <CardFooter className="pt-0">
-        <Button>{buttonText}</Button>
+        <Button color="blue">{buttonText}</Button>
       </CardFooter>
     </Card>
   );

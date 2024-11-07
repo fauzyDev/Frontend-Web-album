@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Box } from '@mui/joy';
 import Button from '@mui/joy/Button';
 import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
@@ -10,12 +11,29 @@ import DialogContent from '@mui/joy/DialogContent';
 import Stack from '@mui/joy/Stack';
 import EditIcon from '@mui/icons-material/Edit';
 import Textarea from '@mui/joy/Textarea';
+import ProgressCount from '../Upload/Progress';
+import axios from 'axios';
 
 export default function InputModal({ inputModal }) {
     const [open, setOpen] = React.useState<boolean>(false);
     const [file, setFile] = React.useState<File | null>(null);
     const [judul, setJudul] = React.useState<string>('');
     const [description, setDescription] = React.useState<string>('');
+    const [token, setToken] = React.useState<null>(null)
+    const [isUploading, setIsUploading] = React.useState<boolean>(false);
+    const [uploadProgress, setUploadProgress] = React.useState<number>(0);
+
+    React.useEffect(() => {
+      const getToken = async () => {
+        try {
+          const response = await axios.get('http://localhost:5000/api/v1/csrf', { withCredentials: true });
+          setToken(response.data.csrfToken);
+        } catch (error) {
+          console.error('Harap refresh halaman', error);
+        }
+      };
+      getToken();
+    }, []);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       if (e.target.files) {
@@ -26,13 +44,36 @@ export default function InputModal({ inputModal }) {
     const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault()
 
-      const fromData = new FormData()
+      const formData = new FormData()
       if (file) {
-        fromData.append('file', file)
+        formData.append('file', file)
       }
-      fromData.append('judul', judul)
-      fromData.append('description', description)
+      formData.append('judul', judul)
+      formData.append('description', description)
 
+
+      try {
+        const response = await axios.post('http://localhost:5000/api/v1/upload', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'x-csrf-token': token,
+          },
+          withCredentials: true,  
+          onUploadProgress: (progressEvent) => {
+            const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+            setUploadProgress(percentCompleted)
+          }
+        });
+        
+        setJudul(response?.data?.data || "");
+        setDescription(response?.data?.data || "");
+        setFile(response?.data?.data || null);
+      } catch (error) {
+        console.error('Terjadi error saat mengupload', error);
+      } finally {
+        setIsUploading(false)
+        setUploadProgress(0)
+      }
 
       setOpen(false);
     }
@@ -82,6 +123,13 @@ export default function InputModal({ inputModal }) {
                   size="md" 
                   onChange={handleFileChange} />
               </FormControl>
+
+              {isUploading && (
+            <Box sx={{ width: '100%', mt: 2 }}>
+              <ProgressCount progress={uploadProgress}/>
+            </Box>
+          )}
+
               <Button type="submit">Simpan</Button>
             </Stack>
           </form>

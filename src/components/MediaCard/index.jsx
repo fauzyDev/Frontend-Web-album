@@ -11,7 +11,7 @@ import PropTypes from "prop-types"
 const MediaCard = ({ api, buttonText, alt, onClick, animation }) => {
   return (
     <>
-      {api[0]?.data?.map((data, index) => {
+      {api?.map((data, index) => {
         return (
       <Card key={index} className="mt-6 w-96 shadow-lg" data-aos={animation}>
         <CardHeader color="blue-gray" className="relative h-56 mt-4">
