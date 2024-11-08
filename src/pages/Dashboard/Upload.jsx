@@ -3,11 +3,9 @@ import UploadForm from "../../components/Upload";
 
 const Upload = () => {
     return (
-        <div>
-            <DashboardLayout headerTitle="From Upload" pageTitle="Upload">
-                <UploadForm/>
-            </DashboardLayout>
-        </div>
+        <DashboardLayout headerTitle="Form Upload" pageTitle="Upload">
+            <UploadForm/>
+        </DashboardLayout>
     );
 }
 

@@ -1,8 +1,12 @@
+import React from 'react';
 import Card from '@mui/joy/Card';
 import Table from '@mui/joy/Table';
 import Sheet from '@mui/joy/Sheet'; 
 import Box from '@mui/joy/Box';
 import Typography from '@mui/joy/Typography';
+import Alert from '@mui/joy/Alert';
+import IconButton from '@mui/joy/IconButton';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import AlertModal from "../../Modal";
 import InputModal from "../../Modal/Input";
 import axios from 'axios';
@@ -10,36 +14,92 @@ import { getData } from "../../../services/api";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 const Tables = () => {
+    const [token, setToken] = React.useState(null);
+    const [alert, setAlert] = React.useState(false);
+    const [color, setColor] = React.useState('danger');
+    const [message, setMessage] = React.useState('');
+
+    // react query instance
     const queryClient = useQueryClient()
 
+    // fetch data base url
     const fetchData = async () => {
     const response = await getData('/api/data');
     return response[0].data
     }
 
-    const { data } = useQuery({ queryKey: ['data'], queryFn: fetchData })
+    // fetch data react query
+    const { data, refetch } = useQuery({ queryKey: ['data'], queryFn: fetchData, gcTime: 1, refetchInterval: 20000 })
 
+    // fetch csrf tokem
+    React.useEffect(() => {
+      const getToken = async () => {
+        try {
+          const response = await axios.get('http://localhost:5000/api/v1/csrf', { withCredentials: true });
+          setToken(response.data.csrfToken);
+        } catch (error) {
+          console.error('Harap refresh halaman', error);
+        }
+      };
+      getToken();
+    }, []);
+
+    // function delete react query mutation
     const mutation = useMutation({ mutationFn: async (id) => {
       await axios.delete('http://localhost:5000/api/data', {
         data: { id },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-csrf-token': token,
+        },
         withCredentials: true
       });
     },
     onSettled: async () => {
+      refetch()
       return await queryClient.invalidateQueries({ queryKey: ['data'] })
     }
   })
 
-  const handleDetete = (id) => { 
-    mutation.mutate(id)
-  }
+    // function handle delete component
+    const handleDetete = (id) => { 
+      mutation.mutate(id)
+
+      if (data) {
+        setMessage('Data berhasil dihapus')
+        setColor('danger')
+        setAlert(true)
+      }
+      setTimeout(() => {
+        setAlert(false)
+      }, 2000)
+    }
 
     return (
       <Card variant="soft" sx={{ overflow: 'auto', padding: 2 }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 2 }}>
           <Typography level="h3">Data List</Typography>
         </Box>
-      
+
+        {alert && (
+              <Alert
+                sx={{ mb: 2 }}
+                color={color}
+                variant="solid"
+                endDecorator={
+                  <IconButton
+                    variant="solid"
+                    color={color}
+                    onClick={() => setAlert(false)}
+                  >
+                    <CloseRoundedIcon />
+                  </IconButton>
+                }
+              >
+                {message}
+              </Alert>
+            )}
+
       <Box sx={{ width: '100%', overflowX: 'auto' }}>
         <Sheet sx={{ minWidth: '100%' }}>
           <Table 

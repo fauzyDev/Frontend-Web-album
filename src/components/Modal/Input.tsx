@@ -51,6 +51,8 @@ export default function InputModal({ modal, id }) {
         file
       }
 
+      setIsUploading(true);
+
       try {
         const response = await axios.patch('http://localhost:5000/api/data', formData, {
           headers: {
@@ -73,7 +75,6 @@ export default function InputModal({ modal, id }) {
         setIsUploading(false)
         setUploadProgress(0)
       }
-
       setOpen(false);
     }
 
@@ -102,7 +103,7 @@ export default function InputModal({ modal, id }) {
                   placeholder="Judul"
                   value={judul}
                   onChange={(e) => setJudul(e.target.value)}
-                  required/>
+                  />
               </FormControl>
               <FormControl>
                 <FormLabel>Description</FormLabel>
@@ -111,7 +112,7 @@ export default function InputModal({ modal, id }) {
                   minRows={4}
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  required/>
+                  />
               </FormControl>
               <FormControl>
                 <Input 
@@ -123,10 +124,10 @@ export default function InputModal({ modal, id }) {
               </FormControl>
 
               {isUploading && (
-            <Box sx={{ width: '100%', mt: 2 }}>
-              <ProgressCount progress={uploadProgress}/>
-            </Box>
-          )}
+                <Box sx={{ width: '100%', mt: 2 }}>
+                  <ProgressCount progress={uploadProgress}/>
+                </Box>
+              )}
 
               <Button type="submit">Simpan</Button>
             </Stack>

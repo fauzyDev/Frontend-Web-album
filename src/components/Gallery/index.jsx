@@ -6,14 +6,15 @@ import VideoCard from "../VideoCard";
 const Gallery = () => {
       const fetch = async () => {
         const response = await getData('/api/data')
-        return response[0].data
+        console.log(response)
+        return response[0]
       }
 
-    const { data } = useQuery({ queryKey: ['data'], queryFn: fetch })
+    const { data } = useQuery({ queryKey: ['data'], queryFn: fetch, gcTime: 1, refetchInterval: 20000 })
 
-return (
-  <div className="flex justify-center">
-    <div className="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  return (
+    <div className="flex justify-center">
+      <div className="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
 
         <MediaCard
           api={data}

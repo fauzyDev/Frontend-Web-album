@@ -8,10 +8,10 @@ import {
 } from "@material-tailwind/react";
 import PropTypes from "prop-types"
  
-const MediaCard = ({ api, buttonText, alt, onClick, animation }) => {
+const MediaCard = ({ api = [], buttonText, alt, onClick, animation }) => {
   return (
     <>
-      {api?.map((data, index) => {
+      {api?.data?.map((data, index) => {
         return (
       <Card key={index} className="mt-6 w-96 shadow-lg" data-aos={animation}>
         <CardHeader color="blue-gray" className="relative h-56 mt-4">
@@ -41,17 +41,15 @@ const MediaCard = ({ api, buttonText, alt, onClick, animation }) => {
 };
 
 MediaCard.propTypes = {
-  api: PropTypes.arrayOf(
-    PropTypes.shape({
-      data: PropTypes.arrayOf(
-        PropTypes.shape({
-          url: PropTypes.string.isRequired,
-          judul: PropTypes.string.isRequired,
-          description: PropTypes.string.isRequired,
-        })
-      ).isRequired,
-    })
-  ).isRequired,
+  api: PropTypes.shape({
+    data: PropTypes.arrayOf(
+      PropTypes.shape({
+        url: PropTypes.string.isRequired,
+        judul: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+  }).isRequired,
     buttonText: PropTypes.string.isRequired,
     alt: PropTypes.string.isRequired,
     onClick: PropTypes.func,

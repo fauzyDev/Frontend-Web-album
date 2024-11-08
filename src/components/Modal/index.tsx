@@ -12,12 +12,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 export default function AlertModal({ modal, id, onDelete }) {
     const [open, setOpen] = React.useState<boolean>(false);
 
-
-  const handle = (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault()
-    onDelete(id)
-    setOpen(false)
-  }
+    const handle = (e: React.MouseEvent<HTMLElement>) => {
+      e.preventDefault()
+      onDelete(id)
+      setOpen(false)
+    }
 
     return (
       <React.Fragment>

@@ -2,14 +2,14 @@ import { useState } from "react";
 import { Spin as Hamburger } from "hamburger-react";
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+    const [isDarkMode, setIsDarkMode] = useState(false);
 
-  const toggleDarkMode = () => {
-    const newDarkMode = !isDarkMode;
-    setIsDarkMode(newDarkMode);
-    document.body.classList.toggle("dark-mode", newDarkMode);
-  };
+    const toggleDarkMode = () => {
+      const DarkMode = !isDarkMode;
+      setIsDarkMode(DarkMode);
+      document.body.classList.toggle("dark-mode", DarkMode);
+    };
 
   return (
     <header className="border-gray-300 bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 dark:bg-gray-900 dark:border-gray-700 sticky top-0 z-50 shadow-lg">
