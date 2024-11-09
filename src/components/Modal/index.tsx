@@ -7,9 +7,8 @@ import DialogActions from '@mui/joy/DialogActions';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
-import DeleteIcon from '@mui/icons-material/Delete';
 
-export default function AlertModal({ modal, id, onDelete }) {
+export default function AlertModal({ modal, icon, id, onDelete }) {
     const [open, setOpen] = React.useState<boolean>(false);
 
     const handle = (e: React.MouseEvent<HTMLElement>) => {
@@ -17,7 +16,7 @@ export default function AlertModal({ modal, id, onDelete }) {
       onDelete(id)
       setOpen(false)
     }
-
+    
     return (
       <React.Fragment>
         <Button
@@ -26,7 +25,7 @@ export default function AlertModal({ modal, id, onDelete }) {
           size="sm"
           sx={{ display: 'flex', alignItems: 'center', gap: 1, minWidth: 'auto' }}
           onClick={() => setOpen(true)}>
-          <DeleteIcon/>
+          {icon}
           {modal}
         </Button>
       <Modal open={open} onClose={() => setOpen(false)}>

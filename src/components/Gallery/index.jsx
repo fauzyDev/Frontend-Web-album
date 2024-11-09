@@ -10,7 +10,7 @@ const Gallery = () => {
         return response[0]
       }
 
-    const { data } = useQuery({ queryKey: ['data'], queryFn: fetch, gcTime: 1, refetchInterval: 20000 })
+    const { data } = useQuery({ queryKey: ['data'], queryFn: fetch, gcTime: 1, refetchInterval: 20000 });
 
   return (
     <div className="flex justify-center">

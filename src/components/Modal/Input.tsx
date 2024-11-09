@@ -9,12 +9,11 @@ import ModalDialog from '@mui/joy/ModalDialog';
 import DialogTitle from '@mui/joy/DialogTitle';
 import DialogContent from '@mui/joy/DialogContent';
 import Stack from '@mui/joy/Stack';
-import EditIcon from '@mui/icons-material/Edit';
 import Textarea from '@mui/joy/Textarea';
 import ProgressCount from '../Upload/Progress';
 import axios from 'axios';
 
-export default function InputModal({ modal, id }) {
+export default function InputModal({ modal, icon, id }) {
     const [open, setOpen] = React.useState<boolean>(false);
     const [file, setFile] = React.useState<File | null>(null);
     const [judul, setJudul] = React.useState<string>('');
@@ -86,7 +85,7 @@ export default function InputModal({ modal, id }) {
           size="sm"
           sx={{ display: 'flex', alignItems: 'center', gap: 1, minWidth: 'auto' }}
           onClick={() => setOpen(true)}>
-          <EditIcon/>
+          {icon}
           {modal}
        </Button>
       <Modal open={open} onClose={() => setOpen(false)}>

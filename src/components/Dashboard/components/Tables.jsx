@@ -7,6 +7,8 @@ import Typography from '@mui/joy/Typography';
 import Alert from '@mui/joy/Alert';
 import IconButton from '@mui/joy/IconButton';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import AlertModal from "../../Modal";
 import InputModal from "../../Modal/Input";
 import axios from 'axios';
@@ -167,10 +169,10 @@ const Tables = () => {
                   <td><Typography level="body1">{item.judul}</Typography></td>
                   <td><Typography level="body2" sx={{ whiteSpace: 'pre-line' }}>{item.description}</Typography></td>
                   <td>
-                    <InputModal modal="Edit" id={item.id}/>
+                    <InputModal modal="Edit" icon={<EditIcon/>} id={item.id}/>
                   </td>
                   <td>
-                    <AlertModal modal="Hapus" id={item.id} onDelete={handleDetete}/>
+                    <AlertModal modal="Hapus" icon={<DeleteIcon/>} id={item.id} onDelete={handleDetete}/>
                   </td>
                 </tr>
               ))) : (
