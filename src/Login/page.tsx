@@ -11,9 +11,7 @@ import Input from '@mui/joy/Input';
 import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
-import Alert from '@mui/joy/Alert';
-import IconButton from '@mui/joy/IconButton';
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import Alerts from '../components/Utils/Notification';
 
 interface FormElements extends HTMLFormControlsCollection {
     username: HTMLInputElement;
@@ -25,7 +23,7 @@ interface SignInFormElement extends HTMLFormElement {
 
 export default function Login() {
     const [alert, setAlert] = React.useState(false);
-    const [color, setColor] = React.useState<'success' | 'danger'>('success');
+    const [colors, setColor] = React.useState<'success' | 'danger'>('success');
     const [token, setToken] = React.useState<string | null>(null);
     const [message, setMessage] = React.useState('');
     const [loading, setLoading] = React.useState(false);
@@ -135,24 +133,8 @@ export default function Login() {
               Login untuk melanjutkan
             </Typography>
             {/* alert */}
-            {alert && (
-              <Alert
-                sx={{ mb: 2 }}
-                color={color}
-                variant="solid"
-                endDecorator={
-                  <IconButton
-                    variant="solid"
-                    color={color}
-                    onClick={() => setAlert(false)}
-                  >
-                    <CloseRoundedIcon />
-                  </IconButton>
-                }
-              >
-                {message}
-              </Alert>
-            )}
+            {alert && ( <Alerts color={colors} message={message} close={() => setAlert(false)} /> )}
+
             <Box
               component="form"
               onSubmit={handleSubmit}
