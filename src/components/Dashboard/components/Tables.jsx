@@ -4,9 +4,6 @@ import Table from '@mui/joy/Table';
 import Sheet from '@mui/joy/Sheet'; 
 import Box from '@mui/joy/Box';
 import Typography from '@mui/joy/Typography';
-import Alert from '@mui/joy/Alert';
-import IconButton from '@mui/joy/IconButton';
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AlertModal from "../../Modal";
@@ -14,11 +11,12 @@ import InputModal from "../../Modal/Input";
 import axios from 'axios';
 import { getData } from "../../../services/api";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import Alerts from '../../Utils/Notification';
 
 const Tables = () => {
     const [token, setToken] = React.useState(null);
     const [alert, setAlert] = React.useState(false);
-    const [color, setColor] = React.useState('danger');
+    const [colors, setColor] = React.useState('danger');
     const [message, setMessage] = React.useState('');
 
     // react query instance
@@ -83,24 +81,7 @@ const Tables = () => {
           <Typography level="h3">Data List</Typography>
         </Box>
 
-        {alert && (
-              <Alert
-                sx={{ mb: 2 }}
-                color={color}
-                variant="solid"
-                endDecorator={
-                  <IconButton
-                    variant="solid"
-                    color={color}
-                    onClick={() => setAlert(false)}
-                  >
-                    <CloseRoundedIcon />
-                  </IconButton>
-                }
-              >
-                {message}
-              </Alert>
-            )}
+        {alert && ( <Alerts color={colors} message={message} close={() => setAlert(false)} /> )}
 
       <Box sx={{ width: '100%', overflowX: 'auto' }}>
         <Sheet sx={{ minWidth: '100%' }}>
