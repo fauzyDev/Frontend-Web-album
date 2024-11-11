@@ -6,9 +6,13 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import Textarea from '@mui/joy/Textarea';
 import Card from '@mui/joy/Card';
 import Input from '@mui/joy/Input';
+import Alerts from '../Utils/Notification';
 
 const UploadForm = () => {
     const [token, setToken] = useState(null);
+    const [alert, setAlert] = useState(false)
+    const [colors, setColor] = useState('')
+    const [message, setMessage] = useState('')
     const [file, setFile] = useState(null);
     const [judul, setJudul] = useState('');
     const [description, setDescription] = useState('');
@@ -57,11 +61,17 @@ const UploadForm = () => {
         setJudul(response?.data?.data || "");
         setDescription(response?.data?.data || "");
         setFile(response?.data?.data || null);
+        setMessage("Berhasil mengunggah file")
+        setColor("success")
+        setAlert(true)
       } catch (error) {
         console.error('Terjadi error saat mengupload', error);
       } finally {
         setIsUploading(false)
         setUploadProgress(0)
+        setMessage("Gagal mengunggah file")
+        setColor("danger")
+        setAlert(true)
       }
     };
 
@@ -81,6 +91,8 @@ const UploadForm = () => {
           <Typography level="h4" gutterBottom>
             Upload File
           </Typography>
+
+          {alert && ( <Alerts color={colors} message={message} close={() => setAlert(false)} /> )}
 
           <Input
             autoFocus

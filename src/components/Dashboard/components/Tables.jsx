@@ -29,7 +29,7 @@ const Tables = () => {
     }
 
     // fetch data react query
-    const { data, refetch } = useQuery({ queryKey: ['data'], queryFn: fetchData, gcTime: 1, refetchInterval: 20000 })
+    const { data, refetch } = useQuery({ queryKey: ['data'], queryFn: fetchData })
 
     // fetch csrf tokem
     React.useEffect(() => {
