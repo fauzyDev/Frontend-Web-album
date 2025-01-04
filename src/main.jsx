@@ -12,6 +12,7 @@ import Page from "./pages/Dashboard/page"
 import Upload from "./pages/Dashboard/Upload";
 import Login from "./pages/Login/page";
 import ProtectedRoute from "./services/protected";
+import Home from "./pages/Home";
 import Foto from "./pages/Foto/page";
 
 const queryClient = new QueryClient()
@@ -23,6 +24,10 @@ export const Main = () => {
         path: "/",
         element: <App/>,
         children: [
+          {
+            path: "home",
+            element: <Home/>
+          },
           {
             path: "foto",
             element: <Foto/>

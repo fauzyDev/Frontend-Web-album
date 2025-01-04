@@ -1,7 +1,8 @@
+import { Outlet } from "react-router-dom"
 import { useEffect } from "react"
 import Layout from "./Layout"
-import Home from "./pages/Home"
-import Foto from "./pages/Foto/page"
+// import Home from "./pages/Home"
+// import Foto from "./pages/Foto/page"
 import Aos from "aos"
 import "aos/dist/aos.css"
 import "./App.css"
@@ -21,8 +22,7 @@ function App() {
   return (
     <Layout>
       <main>
-        <Home/>
-        <Foto/>
+        <Outlet/>
       </main>
     </Layout>
   )
