@@ -11,7 +11,7 @@ import Input from '@mui/joy/Input';
 import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
-import Alerts from '../components/Utils/Notification';
+import Alerts from '../../components/Utils/Notification';
 
 interface FormElements extends HTMLFormControlsCollection {
     username: HTMLInputElement;

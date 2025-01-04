@@ -10,8 +10,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ErrorPage from "./error-page";
 import Page from "./pages/Dashboard/page"
 import Upload from "./pages/Dashboard/Upload";
-import Login from "./Login/page";
+import Login from "./pages/Login/page";
 import ProtectedRoute from "./services/protected";
+import Foto from "./pages/Foto/page";
 
 const queryClient = new QueryClient()
 
@@ -21,6 +22,12 @@ export const Main = () => {
       {
         path: "/",
         element: <App/>,
+        children: [
+          {
+            path: "foto",
+            element: <Foto/>
+          },
+        ],
         errorElement: <ErrorPage/>
       },
       {

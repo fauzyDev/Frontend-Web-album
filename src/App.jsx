@@ -1,6 +1,7 @@
 import { useEffect } from "react"
-import Navbar from "./components/Navbar"
+import Layout from "./Layout"
 import Home from "./pages/Home"
+import Foto from "./pages/Foto/page"
 import Aos from "aos"
 import "aos/dist/aos.css"
 import "./App.css"
@@ -18,11 +19,13 @@ function App() {
   }, [])
 
   return (
-    <>
-      <Navbar/>
-      <Home/>
-      </>
-    )
-  }
+    <Layout>
+      <main>
+        <Home/>
+        <Foto/>
+      </main>
+    </Layout>
+  )
+}
 
 export default App

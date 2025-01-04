@@ -15,7 +15,7 @@ const Navbar = () => {
     <header className="border-gray-300 bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 dark:bg-gray-900 dark:border-gray-700 sticky top-0 z-50 shadow-lg">
       <nav className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         {/* Logo */}
-        <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
+        <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
           <img
             src="https://flowbite.com/docs/images/logo.svg"
             className="h-8"
@@ -93,7 +93,7 @@ const Navbar = () => {
           <ul className="flex flex-col md:flex-row items-center font-medium mt-4 md:mt-0 space-y-2 md:space-y-0 md:space-x-8 rounded-lg bg-gradient-to-r from-gray-800 via-gray-900 to-gray-900 md:bg-transparent dark:bg-gray-900 md:dark:bg-transparent">
             <li>
               <a
-                href="#home"
+                href="/"
                 className="navbar-link block py-2 px-3 md:p-0 text-gray-300 dark:text-gray-400 font-semibold rounded transition duration-300 ease-in-out hover:bg-blue-700 hover:text-white md:hover:bg-transparent"
                 onClick={() => setIsOpen(false)}
               >
@@ -102,7 +102,7 @@ const Navbar = () => {
             </li>
             <li>
               <a
-                href="#foto"
+                href="/foto"
                 className="navbar-link block py-2 px-3 md:p-0 text-gray-300 dark:text-gray-400 font-semibold rounded transition duration-300 ease-in-out hover:bg-blue-700 hover:text-white md:hover:bg-transparent"
                 onClick={() => setIsOpen(false)}
               >
@@ -111,7 +111,7 @@ const Navbar = () => {
             </li>
             <li>
               <a
-                href="#video"
+                href="/video"
                 className="navbar-link block py-2 px-3 md:p-0 text-gray-300 dark:text-gray-400 font-semibold rounded transition duration-300 ease-in-out hover:bg-blue-700 hover:text-white md:hover:bg-transparent"
                 onClick={() => setIsOpen(false)}
               >
