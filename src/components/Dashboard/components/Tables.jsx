@@ -122,7 +122,7 @@ const Tables = () => {
             <thead>
               <tr>
                 <th>No.</th>
-                <th>Item</th>
+                <th>Gambar</th>
                 <th>Judul</th>
                 <th>Deskripsi</th>
                 <th>Edit</th>
