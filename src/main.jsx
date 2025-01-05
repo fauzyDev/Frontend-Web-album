@@ -14,6 +14,7 @@ import Login from "./pages/Login/page";
 import ProtectedRoute from "./services/protected";
 import Home from "./pages/Home";
 import Foto from "./pages/Foto/page";
+import Video from "./pages/Video/page";
 
 const queryClient = new QueryClient()
 
@@ -32,6 +33,10 @@ export const Main = () => {
             path: "foto",
             element: <Foto/>
           },
+          {
+            path: "video",
+            element: <Video/>
+          }
         ],
         errorElement: <ErrorPage/>
       },

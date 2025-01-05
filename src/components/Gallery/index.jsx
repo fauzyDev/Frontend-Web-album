@@ -3,14 +3,14 @@ import { getData } from "../../services/api";
 import MediaCard from "../MediaCard";
 import VideoCard from "../VideoCard";
 
-const Gallery = () => {
-      const fetch = async () => {
-        const response = await getData('/api/data')
-        console.log(response)
-        return response[0]
-      }
+const fetch = async () => {
+    const response = await getData('/api/data')
+    return response[0]
+  }
 
-    const { data } = useQuery({ queryKey: ['data'], queryFn: fetch, gcTime: 1, refetchInterval: 20000 });
+const Gallery = () => {
+
+  const { data } = useQuery({ queryKey: ['data'], queryFn: fetch, gcTime: 1, refetchInterval: 20000 });
 
   return (
     <div className="flex justify-center">
@@ -36,4 +36,4 @@ const Gallery = () => {
   );
 };
 
-export default Gallery
+export default Gallery;

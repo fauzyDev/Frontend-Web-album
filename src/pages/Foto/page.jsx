@@ -1,16 +1,24 @@
 import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getData } from "../../services/api";
 import MediaCard from "../../components/MediaCard";
 
+const fetch = async () => {
+      const response = await getData('/api/data')
+      return response[0]
+    }
 const Foto = () => {
-  const [isVisible, setIsVisible] = React.useState(false);
+    const [isVisible, setIsVisible] = React.useState(false);
 
-  React.useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(true);
+    const { data } = useQuery({ queryKey: ['data'], queryFn: fetch, gcTime: 1000, refetchInterval: 30000 });
+
+    React.useEffect(() => {
+      const timer = setTimeout(() => {
+        setIsVisible(true);
     }, 200);
 
     return () => clearTimeout(timer);
-  }, []);
+    }, []);
 
   return (
     <>
@@ -19,7 +27,7 @@ const Foto = () => {
         ${isVisible ? "opacity-100" : "opacity-0"}`}>
         Halaman Foto
       </h1>
-      <MediaCard api="data" buttonText="Download" alt="card image" animation="zoom-in"/>
+      <MediaCard api={data} buttonText="Download" alt="card image" animation="zoom-in"/>
     </>
   );
 };
