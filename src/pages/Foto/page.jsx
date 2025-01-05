@@ -21,14 +21,15 @@ const Foto = () => {
     }, []);
 
   return (
-    <>
-      <h1
-        className={`text-2xl font-semibold text-center p-4 mt-2 underline transition-opacity duration-1000
+    <div className="flex flex-col items-center">
+      <h1 className={`text-2xl font-semibold text-center p-4 mt-2 underline transition-opacity duration-1000
         ${isVisible ? "opacity-100" : "opacity-0"}`}>
         Halaman Foto
       </h1>
-      <MediaCard api={data} buttonText="Download" alt="card image" animation="zoom-in"/>
-    </>
+    <div className="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <MediaCard api={data} buttonText="Download" alt="card image" animation="zoom-in" />
+      </div>
+    </div>
   );
 };
 
