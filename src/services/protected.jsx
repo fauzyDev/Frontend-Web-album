@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
-import PropTypes from "prop-types"
 import { useEffect, useState } from "react"
+import PropTypes from "prop-types"
 import axios from "axios"
 
 const ProtectedRoute = ({ children }) => {
@@ -8,7 +8,7 @@ const ProtectedRoute = ({ children }) => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        const checkAuth = async () =>{
+        const checkAuth = async () => {
             try {
                 const response = await axios.get('http://localhost:5000/api/v1/check-login', {
                     withCredentials: true,

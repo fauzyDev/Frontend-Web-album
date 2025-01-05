@@ -1,12 +1,12 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import App from "./App";
-import "./index.css";
-import "aos/dist/aos.css";
- 
 import { ThemeProvider } from "@material-tailwind/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+import "./index.css";
+import "aos/dist/aos.css";
+import App from "./App";
 import ErrorPage from "./error-page";
 import Page from "./pages/Dashboard/page"
 import Upload from "./pages/Dashboard/Upload";
@@ -25,7 +25,7 @@ export const Main = () => {
         element: <App/>,
         children: [
           {
-            path: "home",
+            path: "/",
             element: <Home/>
           },
           {

@@ -94,7 +94,7 @@ const Navbar = () => {
             <li>
               <a
                 href="/"
-                className="navbar-link block py-2 px-3 md:p-0 text-gray-300 dark:text-gray-400 font-semibold rounded transition duration-300 ease-in-out hover:bg-blue-700 hover:text-white md:hover:bg-transparent"
+                className="navbar-link block py-2 px-3 md:p-0 text-gray-300 dark:text-gray-400 font-semibold rounded transition duration-300 ease-in-out hover:text-white md:hover:bg-transparent"
                 onClick={() => setIsOpen(false)}
               >
                 Home
@@ -103,7 +103,7 @@ const Navbar = () => {
             <li>
               <a
                 href="/foto"
-                className="navbar-link block py-2 px-3 md:p-0 text-gray-300 dark:text-gray-400 font-semibold rounded transition duration-300 ease-in-out hover:bg-blue-700 hover:text-white md:hover:bg-transparent"
+                className="navbar-link block py-2 px-3 md:p-0 text-gray-300 dark:text-gray-400 font-semibold rounded transition duration-300 ease-in-out hover:text-white md:hover:bg-transparent"
                 onClick={() => setIsOpen(false)}
               >
                 Foto
@@ -112,7 +112,7 @@ const Navbar = () => {
             <li>
               <a
                 href="/video"
-                className="navbar-link block py-2 px-3 md:p-0 text-gray-300 dark:text-gray-400 font-semibold rounded transition duration-300 ease-in-out hover:bg-blue-700 hover:text-white md:hover:bg-transparent"
+                className="navbar-link block py-2 px-3 md:p-0 text-gray-300 dark:text-gray-400 font-semibold rounded transition duration-300 ease-in-out hover:text-white md:hover:bg-transparent"
                 onClick={() => setIsOpen(false)}
               >
                 Video
@@ -121,7 +121,7 @@ const Navbar = () => {
             <li>
               <a
                 href="/login"
-                className="navbar-link block py-2 px-3 md:p-0 text-gray-300 dark:text-gray-400 font-semibold rounded transition duration-300 ease-in-out hover:bg-blue-700 hover:text-white md:hover:bg-transparent"
+                className="navbar-link block py-2 px-3 md:p-0 text-gray-300 dark:text-gray-400 font-semibold rounded transition duration-300 ease-in-out hover:text-white md:hover:bg-transparent"
                 onClick={() => setIsOpen(false)}
               >
                 Login
