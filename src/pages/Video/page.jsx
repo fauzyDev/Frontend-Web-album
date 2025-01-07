@@ -21,9 +21,9 @@ const Video = () => {
         Halaman Video
       </h1>
       <VideoCard 
-        src="https://lzaziflsqehzrtbnyqxl.supabase.co/storage/v1/object/public/video/raiden-shogun-wisteria-genshin-impact-moewalls-com.mp4"
+        src=""
         title="Video Lomba Balap Karung"
-        description="Video dokumentasi lomba balap karung saat perayaan 17 Agustus."
+        description=""
         buttonText="Download"
         alt="video"
         animation="zoom-in"/>

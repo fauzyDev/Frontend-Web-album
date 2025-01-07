@@ -69,9 +69,6 @@ const UploadForm = () => {
       } finally {
         setIsUploading(false)
         setUploadProgress(0)
-        setMessage("Gagal mengunggah file")
-        setColor("danger")
-        setAlert(true)
       }
     };
 
@@ -124,7 +121,9 @@ const UploadForm = () => {
               <ProgressCount progress={uploadProgress}/>
             </Box>
           )}
-
+          
+          <span className="text-base font-semibold">Max file 20MB</span>
+          
           <Button type="submit" variant="solid" color="primary" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <CloudUploadIcon fontSize="large"/>
             Upload
