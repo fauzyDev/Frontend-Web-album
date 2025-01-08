@@ -5,6 +5,7 @@ import VideoCard from "../VideoCard";
 
 const fetch = async () => {
     const response = await getData('/api/data')
+    console.log(response)
     return response[0]
   }
 
@@ -24,7 +25,7 @@ const Gallery = () => {
         />
 
         <VideoCard
-          src="https://lzaziflsqehzrtbnyqxl.supabase.co/storage/v1/object/public/video/raiden-shogun-wisteria-genshin-impact-moewalls-com.mp4"
+          api={data}
           title="Video Lomba Balap Karung"
           description="Video dokumentasi lomba balap karung saat perayaan 17 Agustus."
           buttonText="Download"

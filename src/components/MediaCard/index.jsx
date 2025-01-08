@@ -8,7 +8,7 @@ import {
 } from "@material-tailwind/react";
 import PropTypes from "prop-types"
  
-const MediaCard = ({ api = [], buttonText, alt, onClick, animation }) => {
+const MediaCard = ({ api = { data: []}, buttonText = "Download", alt = "Image", onClick = () => {}, animation = "" }) => {
   return (
     <>
       {api?.data?.map((data, index) => {
@@ -48,12 +48,12 @@ MediaCard.propTypes = {
         judul: PropTypes.string.isRequired,
         description: PropTypes.string.isRequired,
       })
-    ).isRequired,
-  }).isRequired,
+    ),
+  }),
     buttonText: PropTypes.string.isRequired,
     alt: PropTypes.string.isRequired,
     onClick: PropTypes.func,
     animation: PropTypes.string
-  }
+  };
 
 export default MediaCard
