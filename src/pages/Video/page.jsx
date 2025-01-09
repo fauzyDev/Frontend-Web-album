@@ -12,6 +12,7 @@ const Video = () => {
   const [isVisible, setIsVisible] = React.useState(false);
 
    const { data } = useQuery({ queryKey: ['data'], queryFn: fetch, gcTime: 1000, refetchInterval: 30000 });
+   const video = data?.data?.filter((item) => /\.(mp4|avi|mov|wmv)$/i.test(item.url)) || []
 
   React.useEffect(() => {
     const timer = setTimeout(() => {
@@ -28,7 +29,7 @@ const Video = () => {
           Halaman Foto
         </h1>
       <div className="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <VideoCard api={data} buttonText="Download" alt="Video" animation="zoom-in" />
+        <VideoCard api={{ data: video }} buttonText="Download" alt="Video" animation="zoom-in" />
       </div>
     </div>
   );

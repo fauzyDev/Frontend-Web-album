@@ -11,6 +11,7 @@ const Foto = () => {
     const [isVisible, setIsVisible] = React.useState(false);
 
     const { data } = useQuery({ queryKey: ['data'], queryFn: fetch, gcTime: 1000, refetchInterval: 30000 });
+    const images = data?.data?.filter((item) => /\.(jpg|jpeg|png|gif)$/i.test(item.url)) || []
 
     React.useEffect(() => {
       const timer = setTimeout(() => {
@@ -27,7 +28,7 @@ const Foto = () => {
         Halaman Foto
       </h1>
     <div className="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <MediaCard api={data} buttonText="Download" alt="card image" animation="zoom-in" />
+        <MediaCard api={{ data: images }} buttonText="Download" alt="card image" animation="zoom-in" />
       </div>
     </div>
   );

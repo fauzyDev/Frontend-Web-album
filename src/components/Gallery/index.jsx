@@ -13,21 +13,25 @@ const Gallery = () => {
 
   const { data } = useQuery({ queryKey: ['data'], queryFn: fetch, gcTime: 1, refetchInterval: 20000 });
 
+  // filter berdasarkan url image
+  const images = data?.data?.filter((item) => /\.(jpg|jpeg|png|gif)$/i.test(item.url)) || []
+
+  // filter berdasarkan url video
+  const video = data?.data?.filter((item) => /\.(mp4|avi|mov|wmv)$/i.test(item.url)) || []
+
   return (
     <div className="flex justify-center">
       <div className="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
 
         <MediaCard
-          api={data}
+          api={{ data: images }}
           buttonText="Download"
           alt="card image"
           animation="zoom-in"
         />
 
         <VideoCard
-          api={data}
-          title="Video Lomba Balap Karung"
-          description="Video dokumentasi lomba balap karung saat perayaan 17 Agustus."
+          api={{ data: video}}
           buttonText="Download"
           alt="video"
           animation="zoom-in"
