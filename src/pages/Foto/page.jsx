@@ -4,7 +4,7 @@ import { getData } from "../../services/api";
 import MediaCard from "../../components/MediaCard";
 
 const fetch = async () => {
-      const response = await getData('/api/data')
+      const response = await getData('/api/filter/image')
       return response[0]
     }
 const Foto = () => {
