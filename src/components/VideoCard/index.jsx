@@ -19,7 +19,14 @@ const VideoCard = ({ api = { data: [] }, buttonText = "Download", alt = "Image",
           src={data.url}
           alt={alt}
           onClick={onClick}
-          className="object-cover w-full h-full rounded-lg"
+          className="rounded-lg"
+          style={{
+            width: "100%",          
+            height: "100%",        
+            borderRadius: "8px",    
+            objectFit: "contain",   
+            backgroundColor: "#000" 
+          }}
           playsInline
           controls
         />
