@@ -13,6 +13,12 @@ import { getData } from "../../../services/api";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import Alerts from '../../Utils/Notification';
 
+// fetch data base url
+const fetchData = async () => {
+  const response = await getData('/api/data');
+  return response[0].data
+  }
+
 const Tables = () => {
     const [token, setToken] = React.useState(null);
     const [alert, setAlert] = React.useState(false);
@@ -22,14 +28,10 @@ const Tables = () => {
     // react query instance
     const queryClient = useQueryClient()
 
-    // fetch data base url
-    const fetchData = async () => {
-    const response = await getData('/api/data');
-    return response[0].data
-    }
-
     // fetch data react query
     const { data, refetch } = useQuery({ queryKey: ['data'], queryFn: fetchData })
+    const Image = (url) => /\.(jpg|jpeg|png)$/i.test(url);
+    const Video = (url) => /\.(mp4|avi|mov)$/i.test(url);
 
     // fetch csrf tokem
     React.useEffect(() => {
@@ -122,7 +124,7 @@ const Tables = () => {
             <thead>
               <tr>
                 <th>No.</th>
-                <th>Gambar</th>
+                <th>Item</th>
                 <th>Judul</th>
                 <th>Deskripsi</th>
                 <th>Edit</th>
@@ -135,20 +137,39 @@ const Tables = () => {
                 <tr key={item.id}>
                   <td>{index + 1}</td>
                   <td>
+                  {Image(item.url) ? (
                     <Box
                       component="img"
                       src={item.url}
                       sx={{
                         borderRadius: '8px',
-                        width: { xs: '50px', md: '60px' },
-                        height: { xs: '80px', md: '100px' },
+                        width: "100px",
+                        height: "100px",
                         objectFit: 'cover'
                       }}
                       alt="image"
                     />
+                  ) : Video(item.url) ? (
+                    <video
+                        controls
+                        src={item.url}
+                        style={{
+                          borderRadius: "8px",
+                          width: "100px",
+                          height: "100px",
+                          objectFit: "cover",
+                        }}
+                      />
+                  ) : (
+                    <></>
+                  )}
                   </td>
-                  <td><Typography level="body1">{item.judul}</Typography></td>
-                  <td><Typography level="body2" sx={{ whiteSpace: 'pre-line' }}>{item.description}</Typography></td>
+                  <td>
+                    <Typography level="body1">{item.judul}</Typography>
+                  </td>
+                  <td>
+                    <Typography level="body2" sx={{ whiteSpace: 'pre-line' }}>{item.description}</Typography>
+                    </td>
                   <td>
                     <InputModal modal="Edit" icon={<EditIcon/>} id={item.id}/>
                   </td>
